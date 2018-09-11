@@ -127,3 +127,10 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 });
 
 Route::redirect('/php', '/phpinfo', 301);
+
+
+
+Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
+    Route::get('missions', 'CategoryController@listMissionCategories')->name('missions');
+    Route::get('missions/{slug}', 'CategoryController@listMissions');
+});
