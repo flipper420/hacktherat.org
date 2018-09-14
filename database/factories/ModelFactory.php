@@ -19,7 +19,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     $userRole = Role::whereName('User')->first();
 
     return [
-        'name'                           => $faker->unique()->userName,
+        'username'                       => $faker->unique()->userName,
         'first_name'                     => $faker->firstName,
         'last_name'                      => $faker->lastName,
         'email'                          => $faker->unique()->safeEmail,
@@ -40,5 +40,14 @@ $factory->define(App\Models\Profile::class, function (Faker\Generator $faker) {
         'bio'              => $faker->paragraph(2, true),
         'twitter_username' => $faker->userName,
         'github_username'  => $faker->userName,
+    ];
+});
+
+$factory->define(App\Models\Point::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'   => factory(App\Models\User::class)->create()->id,
+        'points'    => $faker->numberBetween(100, 10000),
+        'reason'    => 'testing',
+        'direction' => $faker->randomElement(['add', 'sub']),
     ];
 });

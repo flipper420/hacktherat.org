@@ -2,6 +2,7 @@
 
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\Rank;
 use Illuminate\Database\Seeder;
 use jeremykenedy\LaravelRoles\Models\Role;
 
@@ -16,15 +17,16 @@ class UsersTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         $profile = new Profile();
+
         $adminRole = Role::whereName('Admin')->first();
         $userRole = Role::whereName('User')->first();
 
         // Seed test admin
-        $seededAdminEmail = 'admin@admin.com';
+        $seededAdminEmail = 'ratboy@hacktherat.org';
         $user = User::where('email', '=', $seededAdminEmail)->first();
         if ($user === null) {
             $user = User::create([
-                'name'                           => $faker->userName,
+                'username'                       => 'ratboy',
                 'first_name'                     => $faker->firstName,
                 'last_name'                      => $faker->lastName,
                 'email'                          => $seededAdminEmail,
@@ -44,7 +46,7 @@ class UsersTableSeeder extends Seeder
         $user = User::where('email', '=', 'user@user.com')->first();
         if ($user === null) {
             $user = User::create([
-                'name'                           => $faker->userName,
+                'username'                       => 'user',
                 'first_name'                     => $faker->firstName,
                 'last_name'                      => $faker->lastName,
                 'email'                          => 'user@user.com',

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
-
+use App\Traits\HasRank;
 class User extends Authenticatable
 {
     use HasRoleAndPermission;
+    use HasRank;
     use Notifiable;
     use SoftDeletes;
 

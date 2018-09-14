@@ -21,8 +21,16 @@ class CreateProfilesTable extends Migration
             $table->foreign('theme_id')->references('id')->on('themes');
             $table->string('location')->nullable();
             $table->text('bio')->nullable();
-            $table->string('twitter_username')->nullable();
-            $table->string('github_username')->nullable();
+            $table->string('url')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('mobile')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->enum('gender', ['male', 'female', 'unspecified'])->default('unspecified');
+            $table->string('twitter')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('googleplus')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('github')->nullable();
             $table->string('avatar')->nullable();
             $table->boolean('avatar_status')->default(0);
             $table->timestamps();

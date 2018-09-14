@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('username')->unique();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->unique()->nullable();
@@ -23,6 +23,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('activated')->default(false);
             $table->string('token');
+            $table->integer('rank_id')->unsigned()->index()->default(1);
+            $table->bigInteger('points')->default(0);
+            $table->timestamp('last_login')->nullable();
             $table->ipAddress('signup_ip_address')->nullable();
             $table->ipAddress('signup_confirmation_ip_address')->nullable();
             $table->ipAddress('signup_sm_ip_address')->nullable();
