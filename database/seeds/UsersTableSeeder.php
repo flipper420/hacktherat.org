@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
         $faker = Faker\Factory::create();
         $profile = new Profile();
 
+        $noob = Rank::whereName('Noob')->first();
         $adminRole = Role::whereName('Admin')->first();
         $userRole = Role::whereName('User')->first();
 
@@ -39,6 +40,7 @@ class UsersTableSeeder extends Seeder
 
             $user->profile()->save($profile);
             $user->attachRole($adminRole);
+            $user->assignRank($noob);
             $user->save();
         }
 
@@ -59,6 +61,7 @@ class UsersTableSeeder extends Seeder
 
             $user->profile()->save(new Profile());
             $user->attachRole($userRole);
+            $user->assignRank($noob);
             $user->save();
         }
 

@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('activated')->default(false);
             $table->string('token');
-            $table->integer('rank_id')->unsigned()->index()->default(1);
             $table->bigInteger('points')->default(0);
             $table->timestamp('last_login')->nullable();
             $table->ipAddress('signup_ip_address')->nullable();

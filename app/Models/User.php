@@ -8,10 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use App\Traits\HasRank;
+use App\Traits\GameTrait;
 class User extends Authenticatable
 {
     use HasRoleAndPermission;
     use HasRank;
+    use GameTrait;
     use Notifiable;
     use SoftDeletes;
 
@@ -112,5 +114,15 @@ class User extends Authenticatable
     public function removeProfile($profile)
     {
         return $this->profiles()->detach($profile);
+    }
+
+    public function ranks()
+    {
+        return $this->belongsToMany('App\Models\Rank');
+    }
+
+    public function assignRank($rank)
+    {
+        return $this->ranks()->attach($rank);
     }
 }

@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use App\Models\Category;
 use App\Models\Mission;
-use App\Http\Requests\SubmitMissionPassword;
 use App\Models\Point;
+use App\Traits\GameTrait;
+use App\Http\Requests\SubmitMissionPassword;
+
 
 class MissionController extends Controller
 {
+    use GameTrait;
     protected $id, $name, $mission, $category, $mission_password, $points;
     protected $request;
 
