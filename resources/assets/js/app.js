@@ -6,7 +6,6 @@
  */
 import VueAxios from 'vue-axios';
 import axios from 'axios';
-
 require('./bootstrap');
 require('hideshowpassword');
 // var Dropzone = require('dropzone');

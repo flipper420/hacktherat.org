@@ -12,7 +12,7 @@
         </head>
         <body>
             <div id="app">
-                <page :title="'{{$title}}'" :author="{{$author}}"></page>
+                <page :options="{animationDuration: 1000, intersect:false, responsive: true, maintainAspectRatio: false}"></page>
             </div>
             <script type="text/javascript" src="js/app.js"></script>
         </body>

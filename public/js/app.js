@@ -1643,7 +1643,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    extends: __WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["a" /* Line */],
+    extends: __WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["a" /* Doughnut */],
+    props: ['options'],
     mounted: function mounted() {
         var _this = this;
 
@@ -1662,10 +1663,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     labels: Users,
                     datasets: [{
                         label: 'Points',
-                        backgroundColor: '#FC2525',
-                        data: Points
+                        backgroundColor: [pattern.draw('square', '#ff6384'), pattern.draw('circle', '#36a2eb'), pattern.draw('diamond', '#cc65fe'), pattern.draw('triangle', '#ffce56')], data: Points
                     }]
-                }, { responsive: true, maintainAspectRatio: false });
+                }, _this.options);
             } else {
                 console.log('No data');
             }
@@ -78084,8 +78084,8 @@ var Scatter = generateChart('scatter-chart', 'scatter');
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BaseCharts__ = __webpack_require__("./node_modules/vue-chartjs/es/BaseCharts.js");
 /* unused harmony reexport Bar */
 /* unused harmony reexport HorizontalBar */
-/* unused harmony reexport Doughnut */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__BaseCharts__["e"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__BaseCharts__["c"]; });
+/* unused harmony reexport Line */
 /* unused harmony reexport Pie */
 /* unused harmony reexport PolarArea */
 /* unused harmony reexport Radar */
@@ -89410,7 +89410,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 
 
 __webpack_require__("./resources/assets/js/bootstrap.js");

@@ -140,10 +140,5 @@ Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
 });
 
     Route::get('/page', function () {
-        return view('page',
-            [
-                'title' => "Page 2 - A little about the Author",
-                'author' => \App\Models\User::all()->pluck('points', 'username')
-            ]
-        );
+        return view('page');
     });

@@ -1,8 +1,9 @@
 <script>
-import { Line } from 'vue-chartjs';
+import { Doughnut } from 'vue-chartjs';
 
 export default {
-   extends: Line,
+   extends: Doughnut,
+   props: ['options'],
    mounted() {
          let uri = 'https://localhost/api/users';
          let Users = new Array();
@@ -19,10 +20,14 @@ export default {
                 labels: Users,
                 datasets: [{
                     label: 'Points',
-                    backgroundColor: '#FC2525',
-                    data: Points
+        backgroundColor: [
+            pattern.draw('square', '#ff6384'),
+            pattern.draw('circle', '#36a2eb'),
+            pattern.draw('diamond', '#cc65fe'),
+            pattern.draw('triangle', '#ffce56'),
+        ],                    data: Points
                 }]
-            }, {responsive: true, maintainAspectRatio: false})
+            }, this.options)
         }
         else { 
             console.log('No data');

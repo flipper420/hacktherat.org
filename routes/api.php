@@ -22,7 +22,7 @@ Route::get('/missions/password/category/{cat}', function ($cat) {
 });
 
 Route::get('/users', function () {
-	$names = \App\Models\User::all()->pluck('points', 'username');
+	$names = DB::table('users')->limit(10)->pluck('points', 'username');
 	$data['username'] = $names->keys();
 	$data['points'] = $names->values();
 	return response()->json($data);
