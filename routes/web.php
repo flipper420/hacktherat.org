@@ -138,3 +138,12 @@ Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
     Route::post('/missions/submit/password', ['as'   => 'mission.password',
                                               'uses' => 'MissionController@submitpassword']);
 });
+
+    Route::get('/page', function () {
+        return view('page',
+            [
+                'title' => "Page 2 - A little about the Author",
+                'author' => \App\Models\User::all()->pluck('points', 'username')
+            ]
+        );
+    });

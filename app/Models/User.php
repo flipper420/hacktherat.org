@@ -118,7 +118,7 @@ class User extends Authenticatable
 
     public function ranks()
     {
-        return $this->belongsToMany('App\Models\Rank');
+        return $this->belongsToMany('App\Models\Rank')->withTimestamps();
     }
 
     public function assignRank($rank)

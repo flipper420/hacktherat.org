@@ -12,7 +12,7 @@ class Rank extends Model
     
     public function users()
     {
-    	return $this->belongToMany('App\Models\Users');
+    	return $this->belongToMany('App\Models\Users')->withTimestamps();
     }
 
     /**

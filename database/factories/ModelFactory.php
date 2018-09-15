@@ -38,14 +38,23 @@ $factory->define(App\Models\Profile::class, function (Faker\Generator $faker) {
         'theme_id'         => 1,
         'location'         => $faker->streetAddress,
         'bio'              => $faker->paragraph(2, true),
-        'twitter_username' => $faker->userName,
-        'github_username'  => $faker->userName,
+        'url'              => $faker->url,
+        'phone'            => $faker->phoneNumber,
+        'mobile'           => $faker->phoneNumber,
+        'date_of_birth'    => $faker->date('Y-m-d', 'now'),
+        'gender'           => $faker->randomElement(['male' ,'female', 'unspecified']),
+        'twitter'          => $faker->userName,
+        'facebook'         => $faker->userName,
+        'googleplus'       => $faker->userName,
+        'linkedin'         => $faker->userName,
+        'github'           => $faker->userName,
+        'avatar'           => $faker->imageUrl(),
     ];
 });
 
 $factory->define(App\Models\Point::class, function (Faker\Generator $faker) {
     return [
-        'user_id'   => factory(App\Models\User::class)->create()->id,
+        'user_id'   => factory(App\Models\Profile::class)->create()->user_id,
         'points'    => $faker->numberBetween(100, 10000),
         'reason'    => 'testing',
         'direction' => $faker->randomElement(['add', 'sub']),

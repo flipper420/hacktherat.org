@@ -4,6 +4,8 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import VueAxios from 'vue-axios';
+import axios from 'axios';
 
 require('./bootstrap');
 require('hideshowpassword');
@@ -11,7 +13,7 @@ require('hideshowpassword');
 var password = require('password-strength-meter');
 
 window.Vue = require('vue');
-
+Vue.use(VueAxios, axios);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -21,7 +23,7 @@ window.Vue = require('vue');
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('users-count', require('./components/UsersCount.vue'));
-
+Vue.component('page', require('./components/Page.vue'));
 const app = new Vue({
     el: '#app'
 });

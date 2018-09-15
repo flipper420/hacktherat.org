@@ -20,3 +20,10 @@ Route::get('/missions/password/category/{cat}', function ($cat) {
 	$names = DB::table('missions')->where('category_id', (int)$cat)->get();
 	return response()->json($names);
 });
+
+Route::get('/users', function () {
+	$names = \App\Models\User::all()->pluck('points', 'username');
+	$data['username'] = $names->keys();
+	$data['points'] = $names->values();
+	return response()->json($data);
+});
