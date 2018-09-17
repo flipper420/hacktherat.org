@@ -139,6 +139,10 @@ Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
                                               'uses' => 'MissionController@submitpassword']);
 });
 
-    Route::get('/page', function () {
-        return view('page');
-    });
+Route::get('/points', function () {
+    return view('points');
+});
+
+Route::get('/gender', function () {
+    return view('gender');
+});

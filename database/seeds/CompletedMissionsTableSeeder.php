@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-class MissionsTableSeeder extends Seeder
+class CompletedMissionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class MissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $mission = factory(App\Models\Mission::class, 150)->create();
+		$completedmission = factory(App\Models\CompletedMission::class, 250)->create();
     }
 }

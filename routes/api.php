@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Models\Profile;
+use App\Models\Category;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,8 +23,22 @@ Route::get('/missions/password/category/{cat}', function ($cat) {
 });
 
 Route::get('/users', function () {
-	$names = DB::table('users')->limit(10)->pluck('points', 'username');
+	$names = DB::table('users')->limit(200)->pluck('points', 'username');
 	$data['username'] = $names->keys();
 	$data['points'] = $names->values();
 	return response()->json($data);
+});
+
+Route::get('/gender', function () {
+	$male = Profile::whereGender('male')->count();
+	$female = Profile::whereGender('female')->count();
+	$unknown = Profile::whereGender('unspecified')->count();
+	$dataset = ['Male' => $male, 'Female' => $female, 'Unspecified' => $unknown];
+	return response()->json($dataset);
+});
+
+Route::get('/missions', function() {
+	$categories = Category::withCount('Missions')->whereType('Mission')->pluck('missions_count', 'name')->all();
+	[$keys, $values] = array_divide($categories);
+	return response()->json(['categories'=>$keys, 'count'=>$values]);
 });

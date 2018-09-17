@@ -11,6 +11,6 @@ class pointsseeder extends Seeder
      */
     public function run()
     {
-        $points = factory(App\Models\Point::class, 150)->create();
+        $points = factory(App\Models\Point::class, 500)->create();
     }
 }

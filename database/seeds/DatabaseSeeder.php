@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(MissionsTableSeeder::class);
         $this->call(pointsseeder::class);
+        $this->call(CompletedMissionsTableSeeder::class);
 
 
         Model::reguard();

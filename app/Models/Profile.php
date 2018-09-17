@@ -31,9 +31,16 @@ class Profile extends Model
         'theme_id',
         'location',
         'bio',
-        'twitter_username',
-        'github_username',
-        'user_profile_bg',
+        'url',
+        'phone',
+        'mobile',
+        'date_of_birth',
+        'gender',
+        'twitter',
+        'facebook',
+        'googleplus',
+        'linkedin',
+        'github',
         'avatar',
         'avatar_status',
     ];
@@ -60,5 +67,10 @@ class Profile extends Model
     public function theme()
     {
         return $this->hasOne('App\Models\Theme');
+    }
+
+    public function scopeWhereGender($query, $gender)
+    {
+        return $query->where('gender', $gender);
     }
 }

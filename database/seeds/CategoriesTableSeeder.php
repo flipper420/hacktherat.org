@@ -13,7 +13,6 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
 	{
-		DB::table('categories')->delete();
         //$category = factory(App\Models\Category::class, 15)->create();
 
 		// NoobSeeder

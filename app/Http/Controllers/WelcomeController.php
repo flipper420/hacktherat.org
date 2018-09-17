@@ -26,7 +26,7 @@ class WelcomeController extends Controller
 		// $data = Mission::orderBy('difficulty', 'desc')->limit(10)->get()->pluck('reward', 'name');
 		// //dd($data);
 		$chart->labels($names->values());
-		$chart->dataset('# of Challenges', 'bar', $data->values());
+		$chart->dataset('# of Challenges', 'bar', $data->values())->options(['color' => '#f08d49','backgroundColor' => ['green', 'red', 'orange', 'blue', 'purple', 'yellow', 'lime', 'lightblue', 'black'],'fill' => true]);;
         return view('chart_view', ['chart' => $chart]);
         //return view('welcome');
     }

@@ -19,16 +19,14 @@ class Point extends Model
 		Point::create(['user_id' => $uid,
 		               'points'  => $reward,
 		               'reason'  => $reason,
-		               'direction'     => 'add',
 		]);
 	}
 
 	public function wrongPassword($uid)
 	{
 		Point::create(['user_id' => $uid,
-		               'points'  => 100,
+		               'points'  => -100,
 		               'reason'  => 'Wrong password entered.',
-		               'direction'     => 'sub',
 		]);
 	}
 }

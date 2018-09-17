@@ -29,13 +29,15 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'remember_token'                 => str_random(10),
         'signup_ip_address'              => $faker->ipv4,
         'signup_confirmation_ip_address' => $faker->ipv4,
+        'created_at'                     => $faker->dateTimeBetween('-3 years', 'now'),
+        'updated_at'                     => $faker->dateTimeBetween('-3 years', 'now'),
     ];
 });
 
 $factory->define(App\Models\Profile::class, function (Faker\Generator $faker) {
     return [
         'user_id'          => factory(App\Models\User::class)->create()->id,
-        'theme_id'         => 1,
+        'theme_id'         => \App\Models\Theme::inRandomOrder()->first()->id,
         'location'         => $faker->streetAddress,
         'bio'              => $faker->paragraph(2, true),
         'url'              => $faker->url,
@@ -49,14 +51,17 @@ $factory->define(App\Models\Profile::class, function (Faker\Generator $faker) {
         'linkedin'         => $faker->userName,
         'github'           => $faker->userName,
         'avatar'           => $faker->imageUrl(),
+        'created_at'       => $faker->dateTimeBetween('-3 years', 'now'),
+        'updated_at'       => $faker->dateTimeBetween('-3 years', 'now'),
     ];
 });
 
 $factory->define(App\Models\Point::class, function (Faker\Generator $faker) {
     return [
-        'user_id'   => factory(App\Models\Profile::class)->create()->user_id,
-        'points'    => $faker->numberBetween(100, 10000),
-        'reason'    => 'testing',
-        'direction' => $faker->randomElement(['add', 'sub']),
+        'user_id'    => \App\Models\User::inRandomOrder()->first()->id,
+        'points'     => $faker->numberBetween(-10000, 10000),
+        'reason'     => 'testing',
+        'created_at' => $faker->dateTimeBetween('-3 years', 'now'),
+        'updated_at' => $faker->dateTimeBetween('-3 years', 'now'),
     ];
 });

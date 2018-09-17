@@ -22,7 +22,9 @@ Vue.use(VueAxios, axios);
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('users-count', require('./components/UsersCount.vue'));
-Vue.component('page', require('./components/Page.vue'));
+Vue.component('points', require('./components/Points.vue'));
+Vue.component('gender', require('./components/Gender.vue'));
+Vue.component('missions', require('./components/Missions.vue'));
 const app = new Vue({
     el: '#app'
 });

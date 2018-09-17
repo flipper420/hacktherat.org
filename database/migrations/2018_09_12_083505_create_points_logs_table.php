@@ -18,7 +18,6 @@ class CreatePointsLogsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('points');
             $table->text('reason');
-            $table->enum('direction', ['add', 'sub'])->default('add');
             $table->timestamps();
         });
     }
