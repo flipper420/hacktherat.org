@@ -6,19 +6,17 @@ export default {
    props: ['options'],
    mounted() {
          let uri = 'https://localhost/api/users';
-         let Users = new Array();
-         let Points = new Array();
+         let users = new Array();
+         let points = new Array();
          this.axios.get(uri).then((response) => {
             let data = response.data;
             if(data) {
-                Users = data.username;
-                Points = data.points;
                 this.renderChart({
-                    labels: Users,
+                    labels: data.username,
                     datasets: [{
                         label: 'Points',
                         backgroundColor: 'red',                    
-                        data: Points
+                        data: data.points
                     }]
                 }, this.options);
         }

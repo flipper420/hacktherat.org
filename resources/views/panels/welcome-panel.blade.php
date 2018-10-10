@@ -12,7 +12,7 @@
 <div class="card">
     <div class="card-header @role('admin', true) bg-secondary text-white @endrole">
 
-        Welcome {{ Auth::user()->name }}
+        Welcome <span class="dashtext-4">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span> <b>A.K.A</b> <span class="dashtext-4">{{ Auth::user()->username }}</span>
 
         @role('admin', true)
             <span class="pull-right badge badge-primary" style="margin-top:4px">

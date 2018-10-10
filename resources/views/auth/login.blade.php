@@ -39,6 +39,14 @@
                             </div>
                         </div>
 
+                        @if(config('settings.reCaptchStatus'))
+                            <div class="form-group">
+                                <div class="col-sm-6 col-sm-offset-4">
+                                    <div class="g-recaptcha" data-sitekey="{{ config('settings.reCaptchSite') }}"></div>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="checkbox">

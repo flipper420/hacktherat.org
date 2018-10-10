@@ -12,10 +12,14 @@
         </head>
         <body>
             <div id="app">
-                <points :options="{ fill: false, animationDuration: 1000, intersect:false, responsive: true, maintainAspectRatio: false}"></points>
-                <gender :options="{ fill: false, animationDuration: 1000, intersect:false, responsive: true, maintainAspectRatio: false}"></gender>
-                <missions :options="{ fill: false, animationDuration: 1000, intersect:false, responsive: true, maintainAspectRatio: false}"></missions>
+                <points :width="400" :options="{ fill: false, animationDuration: 1000, intersect:false, responsive: false, maintainAspectRatio: false}"></points>
+                <gender :options="{ fill: false, animationDuration: 1000, intersect:false, responsive: false, maintainAspectRatio: false}"></gender>
+                <missions :options="{ fill: false, animationDuration: 1000, intersect:false, responsive: false, maintainAspectRatio: false}"></missions>
+                <complete-missions :options="{ fill: false, animationDuration: 1000, intersect:false, responsive: false, maintainAspectRatio: false}"></complete-missions>
+                <rankings :options="{ fill: false, animationDuration: 1000, intersect:false, responsive: false, maintainAspectRatio: false}"></rankings>
+
             </div>
+            <script src='https://cdn.jsdelivr.net/npm/patternomaly@1.3.0/dist/patternomaly.min.js'></script>
             <script type="text/javascript" src="js/app.js"></script>
         </body>
     </html>

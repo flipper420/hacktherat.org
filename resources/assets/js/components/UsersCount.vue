@@ -1,72 +1,32 @@
-<template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <div class="card">
-                    <div class="card-header">
-                        Current Users Online
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart" height="100"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
 <script>
-    import Chart from 'chart.js'
-    export default {
-        data() {
-            return {
-                count: 0,
-                labels: ['Online']
-            }
-        },
-        mounted() {
-            this.update();
-            this.drawChart();
-        },
-        methods: {
-            drawChart() {
-                let ctx = document.getElementById("myChart");
-                let myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: this.labels,
-                        datasets: [{
-                            label: 'Number of users online',
-                            data: [this.count],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }]
-                        }
-                    }
-                });
-            },
-            update() {
-                Echo.join('chart')
-                    .here((users) => {
-                        this.count = users.length;
-                        this.drawChart();
-                    })
-                    .joining((user) => {
-                        this.count++;
-                        this.drawChart();
-                    })
-                    .leaving((user) => {
-                        this.count--;
-                        this.drawChart();
-                    });
-            }
+import { Bar } from 'vue-chartjs';
+
+export default {
+   extends: Bar,
+   props: ['options'],
+   mounted() {
+         let uri = 'https://localhost/api/new-users-count';
+         let totals = new Array();
+         let years = new Array();
+         this.axios.get(uri).then((response) => {
+            let data = response.data;
+            data.forEach(function(obj) {
+                totals.push(obj.total);
+                years.push(obj.year);
+            });
+            if(data) {
+                this.renderChart({
+                    labels: years,
+                    datasets: [{
+                        label: 'New Users',
+                        backgroundColor: 'red',                    
+                        data: totals
+                    }]
+                }, this.options);
         }
+        else { 
+            console.log('No data');
+        }});
     }
+}
 </script>

@@ -6,9 +6,17 @@
  */
 import VueAxios from 'vue-axios';
 import axios from 'axios';
+import Vue from 'vue';
+import VueChartkick from 'vue-chartkick';
+import Chart from 'chart.js';
+
+Vue.use(VueChartkick, {adapter: Chart});
 require('./bootstrap');
 require('hideshowpassword');
-// var Dropzone = require('dropzone');
+require('./front');
+require('./charts-home');
+require('./charts-custom');
+var Dropzone = require('dropzone');
 var password = require('password-strength-meter');
 
 window.Vue = require('vue');
@@ -25,12 +33,25 @@ Vue.component('users-count', require('./components/UsersCount.vue'));
 Vue.component('points', require('./components/Points.vue'));
 Vue.component('gender', require('./components/Gender.vue'));
 Vue.component('missions', require('./components/Missions.vue'));
+Vue.component('completed-missions', require('./components/Completed-Missions.vue'));
+Vue.component('rankings', require('./components/Rankings.vue'));
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+     data: {
+        isActive: false,
+        isLoginActive: false,
+        username: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        password2: '',
+        captcha: ''
+     },
 });
 
 $.fn.extend({
-    toggleText: function(a, b){
+    toggleText: function(a, b){ 
         return this.text(this.text() == b ? a : b);
     },
 
@@ -66,3 +87,4 @@ $.fn.extend({
         return !additions ? self : self.addClass(additions);
     }
 });
+

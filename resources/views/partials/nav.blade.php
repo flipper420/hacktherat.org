@@ -1,90 +1,57 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {!! config('app.name', trans('titles.app')) !!}
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            <span class="sr-only">{!! trans('titles.toggleNav') !!}</span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            {{-- Left Side Of Navbar --}}
-            <ul class="navbar-nav mr-auto">
-                @role('admin')
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {!! trans('titles.adminDropdownNav') !!}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                            <a class="dropdown-item {{ Request::is('users', 'users/' . Auth::user()->id, 'users/' . Auth::user()->id . '/edit') ? 'active' : null }}" href="{{ url('/users') }}">
-                                @lang('titles.adminUserList')
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item {{ Request::is('users/create') ? 'active' : null }}" href="{{ url('/users/create') }}">
-                                @lang('titles.adminNewUser')
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item {{ Request::is('themes','themes/create') ? 'active' : null }}" href="{{ url('/themes') }}">
-                                @lang('titles.adminThemesList')
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item {{ Request::is('logs') ? 'active' : null }}" href="{{ url('/logs') }}">
-                                @lang('titles.adminLogs')
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item {{ Request::is('activity') ? 'active' : null }}" href="{{ url('/activity') }}">
-                                @lang('titles.adminActivity')
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item {{ Request::is('phpinfo') ? 'active' : null }}" href="{{ url('/phpinfo') }}">
-                                @lang('titles.adminPHP')
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item {{ Request::is('routes') ? 'active' : null }}" href="{{ url('/routes') }}">
-                                @lang('titles.adminRoutes')
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item {{ Request::is('active-users') ? 'active' : null }}" href="{{ url('/active-users') }}">
-                                @lang('titles.activeUsers')
-                            </a>
-                        </div>
-                    </li>
-                @endrole
-            </ul>
-            {{-- Right Side Of Navbar --}}
-            <ul class="navbar-nav ml-auto">
-                {{-- Authentication Links --}}
-                @guest
-                    <li><a class="nav-link" href="{{ route('login') }}">{{ trans('titles.login') }}</a></li>
-                    <li><a class="nav-link" href="{{ route('register') }}">{{ trans('titles.register') }}</a></li>
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            @if ((Auth::User()->profile) && Auth::user()->profile->avatar_status == 1)
-                                <img src="{{ Auth::user()->profile->avatar }}" alt="{{ Auth::user()->name }}" class="user-avatar-nav">
-                            @else
-                                <div class="user-avatar-nav"></div>
+    <!-- HEADER NAVBAR -->
+    <header :class="{ active: isActive }">
+      <nav class="navbar">
+        <div class="container-fluid d-flex justify-content-between">
+          <div class="mask pseudo">
+            <a href="/index.html">
+              <img src="/img/logo.png" alt="Navbar logo" class="nav-logo">
+            </a>
+          </div>
+          <div class='nav-right-links d-flex justify-content-between'>
+            <form action='/login' id="myLoginForm" method='post'>
+              @csrf
+              <div id="loginButton" :class="{ active: isLoginActive }">
+                  <a href='#' id='login' @click="isLoginActive = !isLoginActive" class='button1'>Login  <i class='fa fa-sign-in fa-custom'></i></a>
+                    <div class='modal'>
+                      <div class="close-button" v-on:click="isLoginActive = !isLoginActive">x</div>
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="login-modal d-flex flex-column align-items-center justify-content-between">
+                            <div class="form-title text-white">Login</div>
+                            <div class="input-group">
+                              <input type="text" id="name2" name="username" v-model="username" required>
+                              <label for="name2">Username</label>
+                            </div>
+                            <div class="input-group">
+                              <input type="password" id="password2" name="password" v-model="password" required>
+                              <label for="password2">Password</label>
+                            </div>
+                            @if(config('settings.reCaptchStatus'))
+                            <div class="input-group">
+                              <input type="text" id="captcha2" name="captcha" required>
+                              <label for="captcha2">Please Enter Captcha Code</label>
+                                {!! captcha_img() !!}
+                            </div>
                             @endif
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item {{ Request::is('profile/'.Auth::user()->name, 'profile/'.Auth::user()->name . '/edit') ? 'active' : null }}" href="{{ url('/profile/'.Auth::user()->name) }}">
-                                @lang('titles.profile')
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+                            </div>
+                            <input type="submit" class='form-button' value="Submit">
+                          </div>
                         </div>
-                    </li>
-                @endguest
-            </ul>
+                      </div>
+                    </div>
+              </form>
+              <a href='#' @click="isActive = !isActive" class='button2 bouncy' style="animation-delay:0.07s">Register <i class='fa fa-user-plus'></i></a>
+          </div>
         </div>
-    </div>
-</nav>
+      </nav>
+    </header>
+    <!-- SVG MASK -->
+    <svg height="0">
+      <mask id="mask-firefox">
+      <image width="200" height="60" xlink:href="img/logo.png" filter="url(#filter)"></image>
+      </mask>
+      <filter id="filter">
+      <feFlood flood-color="white"></feFlood>
+      <feComposite in2="SourceAlpha" operator="in"></feComposite>
+      </filter>
+    </svg>

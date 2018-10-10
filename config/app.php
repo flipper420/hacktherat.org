@@ -172,6 +172,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         jeremykenedy\laravelexceptionnotifier\LaravelExceptionNotifier::class,
         Mews\Captcha\CaptchaServiceProvider::class,
+        //PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
     ],
 
     /*
@@ -227,7 +228,8 @@ return [
         'Gravatar'     => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Image'        => Intervention\Image\Facades\Image::class,
         'Uuid'         => Webpatser\Uuid\Uuid::class,
-        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'Captcha'      => Mews\Captcha\Facades\Captcha::class,
+       // 'Tracker'      => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
     ],
 
 ];

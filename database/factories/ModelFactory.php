@@ -16,7 +16,7 @@ use jeremykenedy\LaravelRoles\Models\Role;
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
-    $userRole = Role::whereName('User')->first();
+    $userRole = Role::inRandomOrder()->first()->id;
 
     return [
         'username'                       => $faker->unique()->userName,
@@ -30,7 +30,6 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'signup_ip_address'              => $faker->ipv4,
         'signup_confirmation_ip_address' => $faker->ipv4,
         'created_at'                     => $faker->dateTimeBetween('-3 years', 'now'),
-        'updated_at'                     => $faker->dateTimeBetween('-3 years', 'now'),
     ];
 });
 
@@ -52,7 +51,6 @@ $factory->define(App\Models\Profile::class, function (Faker\Generator $faker) {
         'github'           => $faker->userName,
         'avatar'           => $faker->imageUrl(),
         'created_at'       => $faker->dateTimeBetween('-3 years', 'now'),
-        'updated_at'       => $faker->dateTimeBetween('-3 years', 'now'),
     ];
 });
 
@@ -61,7 +59,6 @@ $factory->define(App\Models\Point::class, function (Faker\Generator $faker) {
         'user_id'    => \App\Models\User::inRandomOrder()->first()->id,
         'points'     => $faker->numberBetween(-10000, 10000),
         'reason'     => 'testing',
-        'created_at' => $faker->dateTimeBetween('-3 years', 'now'),
-        'updated_at' => $faker->dateTimeBetween('-3 years', 'now'),
+        'created_at' => $faker->dateTimeBetween('-3 years', 'now')->format('Y-m-d H:i:s'),
     ];
 });

@@ -21,7 +21,7 @@ class CreateCompletedMissionsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->integer('mission_id')->unsigned();
             $table->foreign('mission_id')->references('id')->on('missions')->onDelete('cascade');
-            $table->unique(['user_id', 'category_id', 'mission_id']);
+            $table->unique(['user_id', 'category_id', 'mission_id'], 'completed_missions_unique');
             $table->timestamps();
         });
     }

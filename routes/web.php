@@ -1,4 +1,6 @@
 <?php
+use App\Models\User;
+use App\Http\Resources\User as UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +16,13 @@
 */
 
 // Homepage Route
-Route::get('/', 'WelcomeController@welcome')->name('welcome');
 
 // Authentication Routes
 Auth::routes();
 
 // Public Routes
 Route::group(['middleware' => ['web', 'activity']], function () {
+    Route::get('/', 'WelcomeController@index')->name('welcome');
 
     // Activation Routes
     Route::get('/activate', ['as' => 'activate', 'uses' => 'Auth\ActivateController@initial']);
@@ -56,7 +58,9 @@ Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], fun
         'as'   => '{username}',
         'uses' => 'ProfilesController@show',
     ]);
+
 });
+
 
 // Registered, activated, and is current user routes.
 Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', 'twostep']], function () {

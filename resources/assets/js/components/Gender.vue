@@ -17,7 +17,11 @@ export default {
                     labels: Users,
                     datasets: [{
                         label: 'Genders',
-                        backgroundColor: ['blue', 'green', 'red'],                    
+                        backgroundColor: [
+                            pattern.draw('square', '#ff6384'),
+                            pattern.draw('circle', '#36a2eb'),
+                            pattern.draw('diamond', '#cc65fe'),
+                        ],                    
                         data: Points
                     }]
                 }, this.options);

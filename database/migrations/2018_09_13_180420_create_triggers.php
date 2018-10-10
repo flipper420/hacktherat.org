@@ -16,7 +16,7 @@ class CreateTriggers extends Migration
         DB::unprepared("
             CREATE TRIGGER updateTotal AFTER INSERT ON points FOR EACH ROW
                 BEGIN
-                    UPDATE users SET points = points + NEW.points WHERE id = NEW.user_id;
+                    UPDATE userstats SET points = points + NEW.points WHERE id = NEW.user_id;
                 END;
         ");
     }

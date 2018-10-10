@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profile;
 use App\Traits\ActivationTrait;
 use App\Traits\CaptchaTrait;
 use App\Traits\CaptureIpTrait;
@@ -59,18 +60,17 @@ class RegisterController extends Controller
     {
         return Validator::make($data,
             [
-                'name'                  => 'required|max:255|unique:users',
+                'username'              => 'required|max:255|unique:users',
                 'first_name'            => '',
                 'last_name'             => '',
                 'email'                 => 'required|email|max:255|unique:users',
                 'password'              => 'required|min:6|max:30|confirmed',
                 'password_confirmation' => 'required|same:password',
-                'g-recaptcha-response'  => '',
                 'captcha'               => 'required|captcha',
             ],
             [
-                'name.unique'                   => trans('auth.userNameTaken'),
-                'name.required'                 => trans('auth.userNameRequired'),
+                'username.unique'               => trans('auth.userNameTaken'),
+                'username.required'             => trans('auth.userNameRequired'),
                 'first_name.required'           => trans('auth.fNameRequired'),
                 'last_name.required'            => trans('auth.lNameRequired'),
                 'email.required'                => trans('auth.emailRequired'),
@@ -79,11 +79,46 @@ class RegisterController extends Controller
                 'password.min'                  => trans('auth.PasswordMin'),
                 'password.max'                  => trans('auth.PasswordMax'),
                 'g-recaptcha-response.required' => trans('auth.captchaRequire'),
-                'captcha.min'                   => trans('auth.CaptchaWrong'),
+                'captcha.required'              => trans('auth.CaptchaWrong'),
             ]
         );
     }
 
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param array $data
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     
+    protected function validator(array $data)
+    {
+        return Validator::make($data,
+            [
+                'username'              => 'required|max:255|unique:users',
+                'first_name'            => '',
+                'last_name'             => '',
+                'email'                 => 'required|email|max:255|unique:users',
+                'password'              => 'required|min:6|max:30|confirmed',
+                'password_confirmation' => 'required|same:password',
+                'captcha'               => 'required|captcha',
+            ],
+            [
+                'username.unique'               => trans('auth.userNameTaken'),
+                'username.required'             => trans('auth.userNameRequired'),
+                'first_name.required'           => trans('auth.fNameRequired'),
+                'last_name.required'            => trans('auth.lNameRequired'),
+                'email.required'                => trans('auth.emailRequired'),
+                'email.email'                   => trans('auth.emailInvalid'),
+                'password.required'             => trans('auth.passwordRequired'),
+                'password.min'                  => trans('auth.PasswordMin'),
+                'password.max'                  => trans('auth.PasswordMax'),
+                'captcha.required'                   => trans('auth.CaptchaWrong'),
+            ]
+        );
+    }
+    */
     /**
      * Create a new user instance after a valid registration.
      *
@@ -97,7 +132,7 @@ class RegisterController extends Controller
         $role = Role::where('slug', '=', 'unverified')->first();
 
         $user = User::create([
-                'name'              => $data['name'],
+                'username'          => $data['username'],
                 'first_name'        => $data['first_name'],
                 'last_name'         => $data['last_name'],
                 'email'             => $data['email'],
@@ -107,6 +142,8 @@ class RegisterController extends Controller
                 'activated'         => !config('settings.activation'),
             ]);
 
+        $profile = new Profile();
+        $user->profile()->save($profile);
         $user->attachRole($role);
         $this->initiateEmailActivation($user);
 

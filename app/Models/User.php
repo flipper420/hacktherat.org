@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
-use App\Traits\HasRank;
+#use App\Traits\HasRank;
 use App\Traits\GameTrait;
+use Carbon\Carbon;
 class User extends Authenticatable
 {
     use HasRoleAndPermission;
-    use HasRank;
+    #use HasRank;
     use GameTrait;
     use Notifiable;
     use SoftDeletes;
@@ -37,7 +38,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'username',
         'first_name',
         'last_name',
         'email',
@@ -67,6 +68,7 @@ class User extends Authenticatable
     protected $dates = [
         'deleted_at',
     ];
+
 
     /**
      * Build Social Relationships.
@@ -116,6 +118,11 @@ class User extends Authenticatable
         return $this->profiles()->detach($profile);
     }
 
+    public function rank()
+    {
+        return $this->hasOne('App\Models\Rank');
+    }
+
     public function ranks()
     {
         return $this->belongsToMany('App\Models\Rank')->withTimestamps();
@@ -124,5 +131,26 @@ class User extends Authenticatable
     public function assignRank($rank)
     {
         return $this->ranks()->attach($rank);
+    }
+
+    public function scopeThisMonth($query)
+    {
+        return DB::raw("SELECT * FROM users WHERE MONTH(created_at) = 1 AND YEAR(created_at) = 2018");
+        //return $query->where('created_at', '>=', Carbon::now()->startOfMonth())->get();
+    }
+
+    public function scopeLastMonth($query)
+    {
+        return $query->where('created_at', '>=', Carbon::now()->subMonth())->get();
+    }
+
+    public function scopeThisYear($query)
+    {
+        return $query->where('created_at', '>=', Carbon::now()->startOfYear())->get();
+    }
+
+    public function scopeLastYear($query)
+    {
+        return $query->where('created_at', '>=', Carbon::now()->subYear())->get();
     }
 }

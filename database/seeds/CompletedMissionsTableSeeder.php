@@ -11,6 +11,8 @@ class CompletedMissionsTableSeeder extends Seeder
      */
     public function run()
     {
+    	DB::table('completed_missions')->delete();
 		$completedmission = factory(App\Models\CompletedMission::class, 250)->create();
+		//$completedmission = factory(App\Models\CompletedMission::class, 25)->create(['user_id' => 1]);
     }
 }

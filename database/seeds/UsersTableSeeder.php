@@ -5,7 +5,7 @@ use App\Models\User;
 use App\Models\Rank;
 use Illuminate\Database\Seeder;
 use jeremykenedy\LaravelRoles\Models\Role;
-
+use Illuminate\Support\Facades\DB;
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->delete();
         $faker = Faker\Factory::create();
         $profile = new Profile();
 
@@ -69,9 +70,11 @@ class UsersTableSeeder extends Seeder
         $user = factory(App\Models\Profile::class, 250)->create();
         $users = User::All();
         foreach ($users as $user) {
+            $rank = Rank::inRandomOrder()->first();
+            $role = Role::inRandomOrder()->first();
             if (!($user->isAdmin()) && !($user->isUnverified())) {
-                $user->attachRole($userRole);
-                $user->assignRank($noob);
+                $user->attachRole($role);
+                $user->assignRank($rank);
             }
         }
     }
