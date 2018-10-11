@@ -51,7 +51,7 @@ class LoginController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param array $data
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -68,7 +68,7 @@ class LoginController extends Controller
                 'password.required'             => trans('auth.passwordRequired'),
                 'password.min'                  => trans('auth.PasswordMin'),
                 'password.max'                  => trans('auth.PasswordMax'),
-                'captcha.captcha'              => trans('auth.CaptchaWrong'),
+                'captcha.captcha'               => trans('auth.CaptchaWrong'),
             ]
         )->validate();
     }
